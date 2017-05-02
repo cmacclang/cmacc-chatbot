@@ -1,0 +1,13 @@
+{
+  "name": "ai-bot-nda",
+  "version": "1.0.0",
+  "description": "a bot to create your legal documents",
+  "main": "server.js",
+  "author": "axel scheele",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "botbuilder": "^3.7.0",
+    "express": "^4.15.2"
+  }
+}
