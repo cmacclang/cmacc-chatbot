@@ -11,7 +11,7 @@ module.exports = function(app) {
 
     var bot = new builder.UniversalBot(connector)
     var dataPrompt = require('./data-prompts/reducer')
-    bot.Library(dataPrompt.createLibrary())
+    bot.library(dataPrompt.createLibrary())
 
 
 
