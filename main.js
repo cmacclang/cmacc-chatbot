@@ -7,7 +7,7 @@ module.exports = function(app) {
     app.use('/', connector.listen())
 
     var bot = new builder.UniversalBot(connector)
-    var dataPrompt = require('./data-prompts/text')
+    var dataPrompt = require('./data-prompts/reducer')
     bot.Library(dataPrompt.createLibrary())
 
 
@@ -15,7 +15,7 @@ module.exports = function(app) {
 
     bot.dialog('/', [
         function (session) {
-            session.beginDialog('/')
+            session.beginDialog('/nda')
         },
         function (session, args, next) {
 
