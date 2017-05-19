@@ -1,5 +1,8 @@
 var LuisActions = require('../LuisActions/luisactions')
 
+var cmaccApi = require('cmacc-api')
+var cmacc = require('cmacc-compiler')
+
 var createNdaAction = {
     intentName:'CreateNDA',
     friendlyName:'create a very simple NDA',
@@ -24,7 +27,18 @@ var createNdaAction = {
             message: 'Please provide the date of the agreement'
         }
     },
-    fulfill:function(parameters, callback) { console.log(parameters);callback('success')}
+    fulfill:function(parameters, callback) {
+        parameters.Date = parameters.Date.toDateString()
+        try {
+            console.log(__dirname)
+            var ast = cmacc.compile("file://" + __dirname + '/cmacc/simple_nda.cmacc');
+            console.log(ast)
+            var data = cmacc.string(parameters);
+            var comb = cmacc.merge(ast, data);
+            var doc = cmacc.render(comb);
+            callback(doc);
+        } catch (e) {callback('fail')}
+    }
 }
 
 module.exports = [createNdaAction]

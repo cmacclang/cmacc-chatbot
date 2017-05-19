@@ -11,6 +11,8 @@
     "botbuilder": "^3.8.3",
     "express": "^4.15.2",
     "lodash": "^4.17.4",
-    "schema-inspector": "^1.6.8"
+    "schema-inspector": "^1.6.8",
+    "cmacc-api": "1.0.1",
+    "cmacc-compiler": "1.0.17"
   }
 }
