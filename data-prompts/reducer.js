@@ -9,7 +9,7 @@ datalibrary.dialog('reducer',
 
             session.send('could you please enter the '+ args.prompt.shift());
             if(args.prompt.length > 0){
-                session.beginDialog('dataPrompts:reducer')
+                datalibrary.reducer(session, {prompt:args.prompt})
             }
             else{
                 next()

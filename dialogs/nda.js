@@ -1,33 +1,21 @@
 var builder = require('botbuilder')
-var validate = require('../validate')
-module.exports = function(bot, dataPrompts){
 
-    var createNDA = builder.LuisRecognizer(process.env.luisPath)
+var LuisActions = require('../LuisActions/luisactions')
+var createNdaActions = require('./createNdaAction')
 
-    var nda = new builder.IntentDialog({recognizers:[createNDA]})
+module.exports = function(bot){
+
+    var DefaultReplyHandler = function (session) {
+        session.endDialog('I didnt understand your question, I can help you create an NDA if you just tell me to');
+    };
 
 
-    nda.matches('createNDA', [
-        function(session, args, next) {
-            var req =  validate(args.entities)
-            session.userData.req = req;
-            dataPrompts.reducer(session, {prompt:req })
+    var LuisModelUrl = process.env.luisPath
+    var recognizer = new builder.LuisRecognizer(process.env.luisPath);
+    var intentDialog = bot.dialog('/', new builder.IntentDialog({ recognizers: [recognizer] }).onDefault(DefaultReplyHandler))
 
-        },
-        function(session, args, next) {
+    var onContextCreationHandler = function(action, actionModel, next, session){ next()}
 
-            session.send('done')
+    LuisActions.bindToBotDialog(bot, intentDialog, LuisModelUrl, createNdaActions, DefaultReplyHandler, onContextCreationHandler)
 
-        },
-        function(session, args, next) {
-
-        },
-    ])
-
-    nda.onDefault(function(session, args, next){
-        session.send("I have no idea");
-        next();
-    })
-
-    bot.dialog('/nda',nda)
 }
