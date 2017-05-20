@@ -40,18 +40,18 @@ var createNdaAction = {
             var data = cmacc.string(parameters);
             var comb = cmacc.merge(ast, data);
             var doc = cmacc.render(comb);
-            pdf.create(doc).toFile(filepath, function(err, res){
-
-                callback({
-                    text: "Here is your NDA",
-                    attachments: [
-                        {
-                            contentType: 'application/pdf',
-                            contentUrl: 'https://cmacc-bot.herokuapp.com/'+name,
-
-                        }
-                    ]});
-            })
+            //pdf.create(doc).toFile(filepath, function(err, res){
+            callback(doc)
+            //     callback({
+            //         text: "Here is your NDA",
+            //         attachments: [
+            //             {
+            //                 contentType: 'application/pdf',
+            //                 contentUrl: 'https://cmacc-bot.herokuapp.com/'+name,
+            //
+            //             }
+            //         ]});
+            // })
 
 
         } catch (e) {callback('fail:'+ e.toString())}
