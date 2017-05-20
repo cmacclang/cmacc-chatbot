@@ -54,7 +54,7 @@ var createNdaAction = {
             })
 
 
-        } catch (e) {callback('fail')}
+        } catch (e) {callback('fail:'+ e.toString())}
     }
 }
 
