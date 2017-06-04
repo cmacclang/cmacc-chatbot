@@ -4,6 +4,7 @@ var cmaccApi = require('cmacc-api')
 var cmacc = require('cmacc-compiler')
 var pdf = require('html-pdf')
 var uuidV4 = require('uuid/v4')
+var fs = require('fs')
 
 var createNdaAction = {
     intentName:'CreateNDA',
@@ -40,17 +41,29 @@ var createNdaAction = {
             var data = cmacc.string(parameters);
             var comb = cmacc.merge(ast, data);
             var doc = cmacc.render(comb);
+
+            pdf.create(doc).toBuffer(function(err, stream){
+                fs.writeFile(filepath, stream, function(err){
+                    if (err) callback(err)
+                    else
+                    callback({
+                        text: "Here is your NDA",
+                        attachments: [
+                            {
+                                contentType: 'application/pdf',
+                                contentUrl: 'https://cmacc-bot.herokuapp.com/'+name,
+
+                            }
+                        ]});
+                });
+
+
+            })
+
+
             //pdf.create(doc).toFile(filepath, function(err, res){
-            callback(doc)
-            //     callback({
-            //         text: "Here is your NDA",
-            //         attachments: [
-            //             {
-            //                 contentType: 'application/pdf',
-            //                 contentUrl: 'https://cmacc-bot.herokuapp.com/'+name,
+            // callback(doc)
             //
-            //             }
-            //         ]});
             // })
 
 
