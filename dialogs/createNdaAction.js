@@ -42,27 +42,27 @@ var createNdaAction = {
             var comb = cmacc.merge(ast, data);
             var doc = cmacc.render(comb);
 
-            pdf.create(doc).toBuffer(function(err, stream){
-                fs.writeFile(filepath, stream, function(err){
-                    if (err) callback(err)
-                    else
-                    callback({
-                        text: "Here is your NDA",
-                        attachments: [
-                            {
-                                contentType: 'MIME',
-                                contentUrl: 'https://cmacc-bot.herokuapp.com/'+name,
-
-                            }
-                        ]});
-                });
-
-
-            })
+            // pdf.create(doc).toBuffer(function(err, stream){
+            //     fs.writeFile(filepath, stream, function(err){
+            //         if (err) callback(err)
+            //         else
+            //         callback({
+            //             text: "Here is your NDA",
+            //             attachments: [
+            //                 {
+            //                     contentType: 'MIME',
+            //                     contentUrl: 'https://cmacc-bot.herokuapp.com/'+name,
+            //
+            //                 }
+            //             ]});
+            //     });
+            //
+            //
+            // })
 
 
             //pdf.create(doc).toFile(filepath, function(err, res){
-            // callback(doc)
+            callback(doc)
             //
             // })
 
