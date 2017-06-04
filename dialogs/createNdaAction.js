@@ -33,11 +33,11 @@ var createNdaAction = {
     fulfill:function(parameters, callback) {
         parameters.Date = parameters.Date.toDateString()
         try {
-            console.log(__dirname)
+
             var name = uuidV4() + '.pdf'
             var filepath = __dirname + '/pdf/' +name
             var ast = cmacc.compile("file://" + __dirname + '/cmacc/simple_nda.cmacc');
-            console.log(ast)
+
             var data = cmacc.string(parameters);
             var comb = cmacc.merge(ast, data);
             var doc = cmacc.render(comb);
@@ -50,7 +50,7 @@ var createNdaAction = {
                         text: "Here is your NDA",
                         attachments: [
                             {
-                                contentType: 'application/pdf',
+                                contentType: 'MIME',
                                 contentUrl: 'https://cmacc-bot.herokuapp.com/'+name,
 
                             }
